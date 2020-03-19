@@ -1,5 +1,8 @@
 var express = require('express');
 var graphqlHTTP = require('express-graphql');
+
+var { express: voyagerMiddleware } = require('graphql-voyager/middleware');
+ 
 var { buildSchema } = require('graphql');
 
 var typeDefs = require('./types/index');
@@ -53,5 +56,6 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true,
 }));
 
+app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }));
 app.listen(4000);
 console.log('Running a GraphQL API server at localhost:4000/graphql');
